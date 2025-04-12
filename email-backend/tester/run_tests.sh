@@ -19,4 +19,3 @@ if echo "$summary_line" | grep -q "failed"; then
 else
   echo -e "\n✅ All tests passed! Here's your flag: ${FLAG}"
 fi
-
