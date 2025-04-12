@@ -2,7 +2,7 @@
 echo "[+] Running vulnerability patch tests against the live app..."
 
 # Wait for app to be ready
-curl -s "${API_BASE_URL}/api" || { echo "App not reachable."; exit 1; }
+curl -s "${API_BASE_URL}/api" || { echo "App not reachable. Make sure to run the npm 'sync' script!"; exit 1; }
 
 # Run Jest or Curl-based integration tests
 npm test > log_output.txt 2> test_output.txt
@@ -17,6 +17,6 @@ summary_line=$(grep "Test Suites:" test_output.txt)
 if echo "$summary_line" | grep -q "failed"; then
   echo -e "\n❌ Some tests failed. Try again."
 else
-  echo -e "\n✅ All tests passed! Here's your flag: CTF{well_patched_hacker}"
+  echo -e "\n✅ All tests passed! Here's your flag: ${FLAG}"
 fi
 

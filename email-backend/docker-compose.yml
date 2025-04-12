@@ -18,8 +18,7 @@ services:
       - JWT_SECRET=super_secret_key
       - ADMIN_USERNAME=admin@mailgo.com
       - ADMIN_PASSWORD=veryveryweakpassword
-    volumes:
-      - app-code:/home/coder/project
+      - SANDBOX_BASE_URL=http://sandbox-container:5000
 
   sandbox-container:
     build:
@@ -28,12 +27,11 @@ services:
     container_name: sandbox-container
     expose:
       - "3001"
+      - "5000"
     depends_on:
       - mongodb
     networks:
       - ctfnet
-    volumes:
-      - app-code:/app
     environment:
       - MONGO_URI=mongodb://mongodb:27017/email-ctf
       - JWT_SECRET=super_secret_key
@@ -55,6 +53,7 @@ services:
       - JWT_SECRET=super_secret_key
       - ADMIN_USERNAME=admin@mailgo.com
       - ADMIN_PASSWORD=veryveryweakpassword
+      - FLAG=PWNME{2a0207ef2bba97592b89bf70ffd5c561}
 
   mongodb:
     image: mongo:latest
@@ -67,6 +66,3 @@ services:
 networks:
   ctfnet:
     driver: bridge
-
-volumes:
-  app-code:

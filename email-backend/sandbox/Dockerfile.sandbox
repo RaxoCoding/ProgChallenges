@@ -1,12 +1,27 @@
 FROM node:latest
 
-# Install nodemon globally as root (before switching users)
+# Install required global tools and unzip dependencies
+USER root
 RUN npm install -g nodemon
+RUN apt-get update && apt-get install -y unzip
 
-# Create a non-root user and switch to it
+# Create a non-root user
 RUN useradd -m appuser
 USER appuser
 
+# Set working directory where synced code will be extracted
 WORKDIR /app
 
-CMD ["nodemon", "--watch", ".", "server.js"]
+# Copy and install sync server
+COPY --chown=appuser:appuser sync-server.js /app/sync-server.js
+
+RUN mkdir /app/code
+COPY --chown=appuser:appuser code/server.js /app/code/server.js
+COPY --chown=appuser:appuser code/.restart /app/code/.restart
+
+RUN npm install express multer unzipper
+
+RUN node /app/sync-server.js &
+
+# Launch both: sync server + nodemon for tests
+CMD ["sh", "-c", "node /app/sync-server.js & cd /app/code && nodemon --watch .restart server.js"]

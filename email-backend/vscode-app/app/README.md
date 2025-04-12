@@ -6,3 +6,9 @@ Find the vulns and fix them to get the flag!
 
 ## Run App
 `npm run dev`
+
+## Sync to Sandbox for testing
+`npm run sync`
+
+## Questions?
+Ask `raxo101` on discord
