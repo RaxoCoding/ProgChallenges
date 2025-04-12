@@ -55,6 +55,7 @@ services:
       - JWT_SECRET=super_secret_key
       - ADMIN_USERNAME=admin@mailgo.com
       - ADMIN_PASSWORD=veryveryweakpassword
+      - FLAG=PWNME{2a0207ef2bba97592b89bf70ffd5c561}
 
   mongodb:
     image: mongo:latest

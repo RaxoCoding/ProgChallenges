@@ -17,6 +17,5 @@ summary_line=$(grep "Test Suites:" test_output.txt)
 if echo "$summary_line" | grep -q "failed"; then
   echo -e "\n❌ Some tests failed. Try again."
 else
-  echo -e "\n✅ All tests passed! Here's your flag: CTF{well_patched_hacker}"
+  echo -e "\n✅ All tests passed! Here's your flag: ${FLAG}"
 fi
-
